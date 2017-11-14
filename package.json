@@ -1,0 +1,21 @@
+{
+  "name": "elastic-node",
+  "version": "1.0.0",
+  "description": "build a search engine using elastic search and node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node.js",
+    "elasticsearch",
+    "Vue.js"
+  ],
+  "author": "ogundipe samuel",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "elasticsearch": "^13.3.1",
+    "express": "@latest"
+  }
+}

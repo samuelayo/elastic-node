@@ -1,0 +1,118 @@
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<div class="container" id="app">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>Search Cities around the world</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-3">
+            <form action="" class="search-form">
+                <div class="form-group has-feedback">
+                    <label for="search" class="sr-only">Search</label>
+                    <input type="text" class="form-control" name="search" id="search" placeholder="search" v-model="query" >
+                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3" v-for="result in results">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ result._source.name }}, {{ result._source.country }} 
+                </div>
+                <div class="panel-body">
+                    <p>lat:{{ result._source.lat }}, long: {{ result._source.lng }}.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            results: [],
+            query: ''
+        },
+        methods: {
+            search: function() {
+                axios.get("http://127.0.0.1:3001/search?q=" + this.query)
+                    .then(response => {
+                        this.results = response.data;
+                      
+                    })
+            }
+        },
+        watch: {
+            query: function(){
+              this.search();
+            }
+        }
+
+    })
+</script>
+<style>
+    .search-form .form-group {
+        float: right !important;
+        transition: all 0.35s, border-radius 0s;
+        width: 32px;
+        height: 32px;
+        background-color: #fff;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+        border-radius: 25px;
+        border: 1px solid #ccc;
+    }
+    
+    .search-form .form-group input.form-control {
+        padding-right: 20px;
+        border: 0 none;
+        background: transparent;
+        box-shadow: none;
+        display: block;
+    }
+    
+    .search-form .form-group input.form-control::-webkit-input-placeholder {
+        display: none;
+    }
+    
+    .search-form .form-group input.form-control:-moz-placeholder {
+        /* Firefox 18- */
+        display: none;
+    }
+    
+    .search-form .form-group input.form-control::-moz-placeholder {
+        /* Firefox 19+ */
+        display: none;
+    }
+    
+    .search-form .form-group input.form-control:-ms-input-placeholder {
+        display: none;
+    }
+    
+    .search-form .form-group:hover,
+    .search-form .form-group.hover {
+        width: 100%;
+        border-radius: 4px 25px 25px 4px;
+    }
+    
+    .search-form .form-group span.form-control-feedback {
+        position: absolute;
+        top: -1px;
+        right: -2px;
+        z-index: 2;
+        display: block;
+        width: 34px;
+        height: 34px;
+        line-height: 34px;
+        text-align: center;
+        color: #3596e0;
+        left: initial;
+        font-size: 14px;
+    }
+</style>
