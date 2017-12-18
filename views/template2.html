@@ -55,7 +55,7 @@
                     }
                 }
 
-                client.search({index:'scotch-tutorial',  body:body, type:'cities_list'})
+                client.search({index:'scotch.io-tutorial',  body:body, type:'cities_list'})
                     .then(results => {
                         console.log(`found ${results.hits.total} items in ${results.took}ms`);
 

@@ -16,45 +16,17 @@ client.ping({
      }
  });
 
- client.indices.create({
-     index: 'scotch.io-tutorial'
- }, function(error, response, status) {
-     if (error) {
-         console.log(error);
-     } else {
-         console.log("created new index", response);
-     }
- });
-
-
-const cities = require('./cities.json');
-var bulk = [];
-cities.forEach(city =>{
-  bulk.push({index:{ 
-                _index:"scotch-tutorial", 
-                _type:"cities_list",
-            }
-          
-        })
-  bulk.push(city)
-})
-
-
-client.bulk({body:bulk}, function( err, response  ){ 
-        if( err ){ 
-            console.log("Failed Bulk operation".red, err) 
-        } else { 
-            console.log("Successfully imported %s".green, bulk.length); 
-        } 
-    }); 
-
-
-
-
-
+ 
 app.use(bodyParser.json())
 app.set( 'port', process.env.PORT || 3001 );
 app.use( express.static( path.join( __dirname, 'public' )));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.get('/', function(req, res){
   res.sendFile('template.html', {
@@ -80,7 +52,7 @@ app.get('/search', function (req, res){
     }
   }
 
-  client.search({index:'scotch-tutorial',  body:body, type:'cities_list'})
+  client.search({index:'scotch.io-tutorial',  body:body, type:'cities_list'})
   .then(results => {
     res.send(results.hits.hits);
   })

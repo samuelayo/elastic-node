@@ -1,6 +1,6 @@
-#Real-time Search Engine with Node.js, Vue.js and Elasticsearch
+# Real-time Search Engine with Node.js, Vue.js and Elasticsearch
 
-##Getting Started
+## Getting Started
 
 - Clone this repo
 ```
