@@ -70,5 +70,3 @@ Navigate to `http://localhost:3001/`
 
 - Test the Client side Search
 Navigate to `http://localhost:3001/v2`
-
-
